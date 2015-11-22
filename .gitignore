@@ -1,7 +1,0 @@
-node_modules/
-dist/
-.sass-cache/
-app/bower_components/
-data.json
-notes.md
-.DS_Store
