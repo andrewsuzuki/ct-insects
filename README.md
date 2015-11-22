@@ -1,5 +1,7 @@
 # Connecticut Insect Identifier
 
+[andrewsuzuki.com/ct-insects](http://andrewsuzuki.com/ct-insects)
+
 Simple web app to identify common insects found in Connecticut.
 
 Built on a Saturday using React, Browserify, Babel, Gulp, Bootstrap, Sass. Also

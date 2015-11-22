@@ -132,7 +132,8 @@ gulp.task('scrape', function(finished) {
   });
 });
 
-gulp.task('deploy', ['build:production', 'scrape'], function() {
+gulp.task('deploy', function() {
+  del.sync('.publish');
   return gulp.src('./dist/**/*')
     .pipe($.ghPages());
 });
@@ -152,6 +153,9 @@ gulp.task('build:production', sync(['set-production', 'build', 'minify']));
 gulp.task('serve:production', sync(['build:production', 'serve']));
 
 gulp.task('test', ['jest']);
+
+// Build, scrape, deploy
+gulp.task('bsd', sync([['build:production', 'scrape'], 'deploy']));
 
 gulp.task('default', ['build']);
 

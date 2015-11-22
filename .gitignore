@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .sass-cache/
+.publish/
 app/bower_components/
 data.json
 notes.md
