@@ -8,6 +8,8 @@ var browserify = require('browserify');
 var watchify   = require('watchify');
 var source     = require('vinyl-source-stream');
 var path       = require('path');
+var scrape     = require('./scrape.js');
+var jsonfile   = require('jsonfile');
 
 require('harmonize')();
 
@@ -118,6 +120,21 @@ gulp.task('minify:css', function() {
     .pipe($.minifyCss())
     .pipe(gulp.dest('dist/styles'))
     .pipe($.size());
+});
+
+gulp.task('scrape', function(finished) {
+  scrape(function(data) {
+    jsonfile.writeFileSync('dist/data.json', data, {
+      spaces: process.env.NODE_ENV === 'production' ? 0 : 2
+    });
+
+    finished();
+  });
+});
+
+gulp.task('deploy', ['build:production', 'scrape'], function() {
+  return gulp.src('./dist/**/*')
+    .pipe($.ghPages());
 });
 
 gulp.task('minify', ['minify:js', 'minify:css']);
