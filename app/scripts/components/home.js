@@ -40,8 +40,8 @@ export default class extends React.Component {
           </div>
           <p className="lead">Filter Connecticut insects by various criteria.</p>
 
-          <div className="row">
-            <div className="col-md-3">
+          <div className="row filter-wrapper">
+            <div className="col-md-3 filter">
               <label>Keywords (Must match one+)</label>
               <CriteriaSelect
                 name="keywords"
@@ -52,7 +52,7 @@ export default class extends React.Component {
                 existing={this.state.keywords}
               />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-3 filter">
               <label>Colors (Must match all)</label>
               <CriteriaSelect
                 name="colors"
@@ -63,7 +63,7 @@ export default class extends React.Component {
                 existing={this.state.colors}
               />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-3 filter">
               <label>Categories (Must match one+)</label>
               <CriteriaSelect
                 name="categories"
@@ -74,7 +74,7 @@ export default class extends React.Component {
                 existing={this.state.categories}
               />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-3 filter">
               <label>Adult Size Range (mm)</label>
               <SizeRange
                 onChange={this.onChangeSizeRange.bind(this)}

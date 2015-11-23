@@ -1,0 +1,60 @@
+import React from 'react';
+import GoogleImages from '../GoogleImages';
+import _ from 'lodash';
+
+export default class extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      images: []
+    };
+  }
+
+  componentDidMount() {
+    GoogleImages(this.props.insect.name).then((response, error) => {
+      if (error) { return; }
+      this.setState({
+        images: _.take(response.data.responseData.results, 4)
+      });
+    });
+  }
+
+  render() {
+    const { insect } = this.props;
+    const {
+      name,
+      about,
+      keywords,
+      colors,
+      category,
+      sizerange,
+      reach,
+      common_name,
+      scientific_name,
+      other_names
+    } = insect;
+
+    const { images } = this.state;
+
+    let i = 0;
+    const imagesRendered = images.map(image => {
+      return (
+        <div className="col-sm-3" key={i++}>
+          <a href={image.originalContextUrl} target="_blank">
+            <img src={image.url} className="insect-image" />
+          </a>
+        </div>
+      );
+    });
+
+    return (
+      <div className="row">
+        <div className="col-md-12">
+          <div className="row">
+            {imagesRendered}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}

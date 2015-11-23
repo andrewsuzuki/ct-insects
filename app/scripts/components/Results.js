@@ -12,8 +12,6 @@ export default class extends React.Component {
       sizerange
     } = this.props;
 
-    console.log(keywords, colors, categories, sizerange);
-
     let i = 0;
     const renderedResults = insects.filter(insect => {
       // Filter by keywords
