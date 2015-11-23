@@ -43,7 +43,7 @@ export default class extends React.Component {
 
           <div className="row filter-wrapper">
             <div className="col-md-3 filter">
-              <label>Keywords (Must match one+)</label>
+              <label>Keywords (Match any)</label>
               <CriteriaSelect
                 name="keywords"
                 criteriaKey="keywords"
@@ -54,7 +54,7 @@ export default class extends React.Component {
               />
             </div>
             <div className="col-md-3 filter">
-              <label>Colors (Must match all)</label>
+              <label>Colors (Match all)</label>
               <CriteriaSelect
                 name="colors"
                 criteriaKey="colors"
@@ -65,7 +65,7 @@ export default class extends React.Component {
               />
             </div>
             <div className="col-md-3 filter">
-              <label>Categories (Must match one+)</label>
+              <label>Categories (Match any)</label>
               <CriteriaSelect
                 name="categories"
                 criteriaKey="category"
