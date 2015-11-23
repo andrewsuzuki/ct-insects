@@ -42,7 +42,7 @@ export default class extends React.Component {
 
           <div className="row">
             <div className="col-md-3">
-              <label>Keywords</label>
+              <label>Keywords (Must match one+)</label>
               <CriteriaSelect
                 name="keywords"
                 criteriaKey="keywords"
@@ -53,7 +53,7 @@ export default class extends React.Component {
               />
             </div>
             <div className="col-md-3">
-              <label>Colors</label>
+              <label>Colors (Must match all)</label>
               <CriteriaSelect
                 name="colors"
                 criteriaKey="colors"
@@ -64,7 +64,7 @@ export default class extends React.Component {
               />
             </div>
             <div className="col-md-3">
-              <label>Categories</label>
+              <label>Categories (Must match one+)</label>
               <CriteriaSelect
                 name="categories"
                 criteriaKey="category"
@@ -82,8 +82,15 @@ export default class extends React.Component {
               />
             </div>
           </div>
-        </div>
 
+          <Results
+            insects={this.state.insects}
+            keywords={this.state.keywords}
+            colors={this.state.colors}
+            categories={this.state.categories}
+            sizerange={this.state.sizerange}
+          />
+        </div>
 
         <footer className="footer">
           <div className="container">

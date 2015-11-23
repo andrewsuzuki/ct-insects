@@ -3,12 +3,8 @@ var osmosis = require('osmosis');
 // Split based on ; and , separation, then trim results
 var smartSplit = function(value) {
   return value.split(new RegExp('[;,]', 'g'))
-  .map(function(str) {
-    return str.trim();
-  })
-  .filter(function(str) {
-    return str.length > 1;
-  });
+  .map(str => str.trim())
+  .filter(str => str.length > 1);
 };
 
 module.exports = function(cb) {
@@ -68,16 +64,22 @@ module.exports = function(cb) {
               if (mm.length === 2) {
                 // remove mm
                 // note: can't map to parseInt directly due to radix arg :(
-                insect.adult_size = mm.map(value => parseInt(value));
+                insect.sizerange = mm.map(value => parseInt(value));
               } else {
-                insect.adult_size = [0, 0];
+                insect.sizerange = [0, 0];
               }
               break;
             case 'Identifying Colors':
               insect.colors = smartSplit(value);
               break;
             case 'General Description':
-              insect.keywords = smartSplit(value);
+              var kws = smartSplit(value);
+              // since some descriptions copy over the colors,
+              // filter the colors from the keywords
+              if (insect.colors) {
+                kws = kws.filter(kw => insect.colors.indexOf(kw) === -1);
+              }
+              insect.keywords = kws;
               break;
             case 'North American Reach (Though Not Limited To*)':
               insect.reach = smartSplit(value);
