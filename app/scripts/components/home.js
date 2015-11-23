@@ -22,7 +22,7 @@ export default class extends React.Component {
   componentDidMount() {
     $.ajax({
       type: 'GET',
-      url: '../data.json',
+      url: process.env.NODE_ENV === 'production' ? './data.json' : '../data.json',
       dataType: 'json',
       success: function(result) {
         this.setState(result);
