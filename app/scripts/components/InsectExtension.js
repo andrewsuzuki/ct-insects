@@ -2,11 +2,14 @@ import React from 'react';
 import GoogleImages from '../GoogleImages';
 import _ from 'lodash';
 
+import LoadingIndicator from './LoadingIndicator';
+
 export default class extends React.Component {
   constructor() {
     super();
     this.state = {
-      images: []
+      images: [],
+      loading: true
     };
   }
 
@@ -14,7 +17,8 @@ export default class extends React.Component {
     GoogleImages(this.props.insect.name).then((response, error) => {
       if (error) { return; }
       this.setState({
-        images: _.take(response.data.responseData.results, 4)
+        images: _.take(response.data.responseData.results, 4),
+        loading: false
       });
     });
   }
@@ -34,10 +38,10 @@ export default class extends React.Component {
       other_names
     } = insect;
 
-    const { images } = this.state;
+    const { images, loading } = this.state;
 
     let i = 0;
-    const imagesRendered = images.map(image => {
+    const imagesRendered = loading ? <LoadingIndicator /> : images.map(image => {
       return (
         <div className="col-sm-3" key={i++}>
           <a href={image.originalContextUrl} target="_blank">
