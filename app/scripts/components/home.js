@@ -1,14 +1,20 @@
 import React from 'react';
+import _ from 'lodash';
 
 import CriteriaSelect from './CriteriaSelect';
 import SizeRange from './SizeRange';
+import Results from './Results';
 
 export default class extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      keywords: {},
-      insects: []
+      insects: [],
+      // criteria
+      keywords: [],
+      colors: [],
+      categories: [],
+      sizerange: [0, 0]
     }
   }
 
@@ -42,7 +48,8 @@ export default class extends React.Component {
                 criteriaKey="keywords"
                 placeholder="Filter by multiple keywords..."
                 insects={this.state.insects}
-                onChange={this.onChangeKeywords}
+                onChange={this.onChangeKeywords.bind(this)}
+                existing={this.state.keywords}
               />
             </div>
             <div className="col-md-3">
@@ -52,7 +59,8 @@ export default class extends React.Component {
                 criteriaKey="colors"
                 placeholder="Filter by multiple colors..."
                 insects={this.state.insects}
-                onChange={this.onChangeColors}
+                onChange={this.onChangeColors.bind(this)}
+                existing={this.state.colors}
               />
             </div>
             <div className="col-md-3">
@@ -62,13 +70,15 @@ export default class extends React.Component {
                 criteriaKey="category"
                 placeholder="Filter by multiple categories..."
                 insects={this.state.insects}
-                onChange={this.onChangeCategories}
+                onChange={this.onChangeCategories.bind(this)}
+                existing={this.state.categories}
               />
             </div>
             <div className="col-md-3">
               <label>Adult Size Range (mm)</label>
               <SizeRange
-                onChange={this.onChangeSizeRange}
+                onChange={this.onChangeSizeRange.bind(this)}
+                existing={this.state.sizerange}
               />
             </div>
           </div>
@@ -84,19 +94,16 @@ export default class extends React.Component {
     );
   }
 
-  onChangeKeywords(data) {
-    console.log('new keywords', data)
+  onChangeGeneric(key, data) {
+    if (Array.isArray(data)) {
+      this.setState(_.extend({}, this.state, {
+        [key]: data
+      }));
+    }
   }
 
-  onChangeColors(data) {
-    console.log('new colors', data)
-  }
-
-  onChangeCategories(data) {
-    console.log('new categories', data)
-  }
-
-  onChangeSizeRange(data) {
-    console.log('new range', data);
-  }
+  onChangeKeywords(data) { this.onChangeGeneric('keywords', data); }
+  onChangeColors(data) { this.onChangeGeneric('colors', data); }
+  onChangeCategories(data) { this.onChangeGeneric('categories', data); }
+  onChangeSizeRange(data) { this.onChangeGeneric('sizerange', data); }
 }

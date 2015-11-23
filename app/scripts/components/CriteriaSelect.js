@@ -33,11 +33,18 @@ export default class extends React.Component {
       }
     });
 
+    const change = (strData, arrData) => {
+      const result = [];
+      Object.keys(arrData).forEach(key => result.push(arrData[key].value));
+      this.props.onChange(result);
+    };
+
     return (
       <Select
         name={this.props.name}
         placeholder={this.props.placeholder}
-        onChange={this.props.onChange}
+        value={this.props.existing}
+        onChange={change}
         multi={true}
         options={crits}
         optionRenderer={this.renderOption}

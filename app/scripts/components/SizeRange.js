@@ -8,9 +8,19 @@ class RangeSlider extends React.Component {
   }
 
   attachSlider() {
+    if (this.$el) {
+      this.$el.noUiSlider.destroy();
+    }
+
+    let start = [ this.props.min, this.props.max ];
+    if (this.props.existing[0] !== 0 || this.props.existing[1] !== 0) {
+      start = this.props.existing;
+    }
+
     const $el = this.refs.slider;
+    this.$el = $el;
     const slider = noUiSlider.create($el, {
-      start: [ this.props.min, this.props.max ],
+      start: start,
       connect: true,
       step: this.props.step,
       range: {
@@ -37,6 +47,7 @@ export default class extends React.Component {
         max={175}
         min={0}
         step={1}
+        existing={this.props.existing}
         onChange={this.props.onChange}
       />
     );
