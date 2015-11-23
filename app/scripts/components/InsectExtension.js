@@ -14,6 +14,7 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
+    // Get google images
     GoogleImages(this.props.insect.name).then((response, error) => {
       if (error) { return; }
       this.setState({
@@ -45,7 +46,7 @@ export default class extends React.Component {
       return (
         <div className="col-sm-3" key={i++}>
           <a href={image.originalContextUrl} target="_blank">
-            <img src={image.url} className="insect-image" />
+            <img src={image.unescapedUrl} className="insect-image" />
           </a>
         </div>
       );
