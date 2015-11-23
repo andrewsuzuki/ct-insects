@@ -41,15 +41,43 @@ class RangeSlider extends React.Component {
 }
 
 export default class extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      range: [0, 0]
+    };
+  }
   render() {
+    const { range } = this.state;
+
+    let mmText = 'mm';
+
+    if (range[0] !== 0 || range[1] !== 0) {
+      // mmmm mmm mmmmmmm, elegant!
+      mmText = range.map(n => n + 'mm').join(' to ');
+    }
+
     return (
-      <RangeSlider
-        max={175}
-        min={0}
-        step={1}
-        existing={this.props.existing}
-        onChange={this.props.onChange}
-      />
+      <div>
+        <label>Adult Size Range ({mmText})</label>
+        <RangeSlider
+          max={175}
+          min={0}
+          step={1}
+          existing={this.props.existing}
+          onChange={this.onChange.bind(this)}
+        />
+      </div>
     );
+  }
+
+  onChange(range) {
+    // update label mm values
+    this.setState({
+      range: range
+    });
+
+    // forward to parent onChange (prop)
+    this.props.onChange(range);
   }
 }

@@ -76,7 +76,6 @@ export default class extends React.Component {
               />
             </div>
             <div className="col-md-3 filter">
-              <label>Adult Size Range (mm)</label>
               <SizeRange
                 onChange={this.onChangeSizeRange.bind(this)}
                 existing={this.state.sizerange}
