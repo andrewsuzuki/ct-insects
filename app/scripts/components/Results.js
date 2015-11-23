@@ -81,6 +81,15 @@ export default class extends React.Component {
       // This insect passed all applicable filters
       return true;
     })
+    // Sort alphabetically
+    .sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      } else if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    })
     // Now make list by mapping Insect listing component
     .map(insect => <Insect key={i++} insect={insect} />);
 
