@@ -41,7 +41,7 @@ gulp.task('styles', function() {
   return $.rubySass('app/styles/main.scss', {
       style: 'expanded',
       precision: 10,
-      loadPath: ['app/bower_components']
+      loadPath: ['app/bower_components', 'node_modules']
     })
     .on('error', $.util.log.bind($.util, 'Sass Error'))
     .pipe($.autoprefixer('last 1 version'))
@@ -159,7 +159,7 @@ gulp.task('bsd', sync([['build:production', 'scrape'], 'deploy']));
 
 gulp.task('default', ['build']);
 
-gulp.task('watch', sync(['clean-bundle', 'serve']), function() {
+gulp.task('watch', sync(['clean-bundle', 'scrape', 'serve']), function() {
   bundler.watch();
   gulp.watch('app/*.html', ['html']);
   gulp.watch('app/styles/**/*.scss', ['styles']);

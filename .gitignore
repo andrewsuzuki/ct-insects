@@ -6,3 +6,4 @@ app/bower_components/
 data.json
 notes.md
 .DS_Store
+npm-debug.log

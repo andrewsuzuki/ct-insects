@@ -7,13 +7,12 @@ var smartSplit = function(value) {
     return str.trim();
   })
   .filter(function(str) {
-    return str.length;
+    return str.length > 1;
   });
 };
 
 module.exports = function(cb) {
-  var bugs = [];
-  var keywords = {};
+  var insects = [];
 
   return osmosis
   .get('http://www.insectidentification.org/insects-by-state.asp?thisState=Connecticut')
@@ -32,7 +31,7 @@ module.exports = function(cb) {
     p4: 'p:nth-of-type(4)',
   })
   .data(function(listing) {
-    bug = {
+    insect = {
       name: listing.name,
       about: listing.about,
     };
@@ -50,56 +49,50 @@ module.exports = function(cb) {
           switch (line.substring(0, line.indexOf(':'))) {
             // First area
             case 'Category':
-              bug.category = value;
+              insect.category = value;
               break;
             case 'Common name':
-              bug.common_name = value;
+              insect.common_name = value;
               break;
             case 'Scientific Name':
-              bug.scientific_name = value;
+              insect.scientific_name = value;
               break;
             case 'Other Names':
-              bug.other_names = value;
+              insect.other_names = value;
               break;
 
             // Second area
             case 'Adult Size (Length)':
-              bug.adult_size = value.split('\n')[0].trim();
+              // split xxmm to yymm
+              const mm = value.split('\n')[0].trim().split(' to ');
+              if (mm.length === 2) {
+                // remove mm
+                // note: can't map to parseInt directly due to radix arg :(
+                insect.adult_size = mm.map(value => parseInt(value));
+              } else {
+                insect.adult_size = [0, 0];
+              }
               break;
             case 'Identifying Colors':
-              bug.colors = smartSplit(value);
+              insect.colors = smartSplit(value);
               break;
             case 'General Description':
-              var kws = smartSplit(value);
-              bug.keywords = kws;
-
-              // Keep track of total keyword counts
-              kws.forEach(function(kw) {
-                if (keywords.hasOwnProperty(kw)) {
-                  keywords[kw] += 1;
-                } else {
-                  keywords[kw] = 1;
-                }
-              });
-
+              insect.keywords = smartSplit(value);
               break;
             case 'North American Reach (Though Not Limited To*)':
-              bug.reach = smartSplit(value);
+              insect.reach = smartSplit(value);
               break;
           }
         }
       }
     });
 
-    bugs.push(bug);
+    insects.push(insect);
   })
   .log(console.log)
   .error(console.log)
   .debug(console.log)
   .done(function() {
-    cb({
-      keywords: keywords,
-      bugs: bugs
-    });
+    cb({ insects: insects });
   });
 };
