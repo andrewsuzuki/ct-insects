@@ -48,8 +48,19 @@ export default class extends React.Component {
     });
 
     return (
-      <div className="row">
+      <div className="row insect-extension">
         <div className="col-md-12">
+          <div className="row">
+            <div className="col-sm-4">
+              <p><strong>Common Name:</strong> {common_name}</p>
+              <p><strong>Scientific Name:</strong> {scientific_name}</p>
+              <p><strong>Other Names:</strong> {other_names}</p>
+            </div>
+            <div className="col-sm-8">
+              <p><strong>Reach:</strong> {reach.join(', ')}</p>
+            </div>
+          </div>
+          <p>{about}</p>
           <div className="row">
             {imagesRendered}
           </div>

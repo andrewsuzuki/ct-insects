@@ -39,6 +39,7 @@ export default class extends React.Component {
             <h1>Connecticut Insect Identifier <span className="glyphicon glyphicon-eye-open"></span></h1>
           </div>
           <p className="lead">Filter Connecticut insects by various criteria.</p>
+          <p>By Andrew Suzuki (UConn Computer Science, Class of 2018)</p>
 
           <div className="row filter-wrapper">
             <div className="col-md-3 filter">
