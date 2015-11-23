@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 
-import MagIcon from './MagIcon';
+import Header from './Header';
 import CriteriaSelect from './CriteriaSelect';
 import SizeRange from './SizeRange';
 import Results from './Results';
@@ -36,10 +36,7 @@ export default class extends React.Component {
     return (
       <div>
         <div className="container">
-          <div className="page-header">
-            <h1>Connecticut Insect Identifier <MagIcon /></h1>
-          </div>
-          <p className="lead">Filter Connecticut insects by various criteria. By Andrew Suzuki (UConn 2017)</p>
+          <Header />
 
           <div className="row filter-wrapper">
             <div className="col-md-3 filter">
