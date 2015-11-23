@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Insect from './Insect';
+import ResultsCount from './ResultsCount';
 
 export default class extends React.Component {
   render() {
@@ -86,6 +87,7 @@ export default class extends React.Component {
     return (
       <div className="row insect-results">
         <div className="col-md-12">
+          <ResultsCount count={renderedResults.length} />
           {renderedResults}
         </div>
       </div>
