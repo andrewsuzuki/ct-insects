@@ -68,7 +68,7 @@ export default class extends React.Component {
             {imagesRendered}
           </div>
           <p>
-            <a href={'http://www.google.com/images?q='+encodeURIComponent(name)} target="_blank">
+            <a href={'http://www.google.com/images?q='+encodeURIComponent(name + ' insect')} target="_blank">
               More Images
             </a>
           </p>
