@@ -18,7 +18,7 @@ export default class extends React.Component {
     GoogleImages(this.props.insect.name).then((response, error) => {
       if (error) { return; }
       this.setState({
-        images: _.take(response.data.responseData.results, 4),
+        images: _.take(response.data.images, 4),
         loading: false
       });
     });
@@ -45,9 +45,7 @@ export default class extends React.Component {
     const imagesRendered = loading ? <LoadingIndicator /> : images.map(image => {
       return (
         <div className="col-sm-3" key={i++}>
-          <a href={image.originalContextUrl} target="_blank">
-            <img src={image.unescapedUrl} className="insect-image" />
-          </a>
+          <img src={image.imageurl} className="insect-image" />
         </div>
       );
     });
@@ -69,6 +67,11 @@ export default class extends React.Component {
           <div className="row">
             {imagesRendered}
           </div>
+          <p>
+            <a href={'http://www.google.com/images?q='+encodeURIComponent(name)} target="_blank">
+              More Images
+            </a>
+          </p>
         </div>
       </div>
     );
